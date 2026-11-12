@@ -1,3 +1,4 @@
+
 "use client";
 import { useState } from "react";
 import Image from "next/image";
@@ -10,6 +11,7 @@ export default function BlockCard({ b, i }: { b: Bloco; i: number }) {
   const itens = useOrcamento();
   const noOrcamento = itens.find((i) => i.id === b.slug)?.qtd ?? 0;
   const [medidas, setMedidas] = useState(false);
+  const estrut = b.categoria === "estrutural";
   const nome = `${b.largura}×${b.altura}×${b.comprimento}`;
 
   return (
@@ -23,7 +25,7 @@ export default function BlockCard({ b, i }: { b: Bloco; i: number }) {
       transition={{ duration: 0.5, delay: (i % 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className={`card-top${medidas ? " planta" : ""}`}>
-        {!medidas && <span className="furos">{b.furos} furos</span>}
+        {!medidas && <span className="furos">{b.furos ? `${b.furos} furos` : "Estrutural"}</span>}
         <AnimatePresence mode="wait" initial={false}>
           {medidas ? (
             <motion.div key="m" className="stage planta-wrap" style={{ transformPerspective: 700 }}
@@ -34,8 +36,8 @@ export default function BlockCard({ b, i }: { b: Bloco; i: number }) {
             <motion.div key="f" className="stage" style={{ transformPerspective: 700 }}
               initial={{ rotateY: -90, opacity: 0 }} animate={{ rotateY: 0, opacity: 1 }} exit={{ rotateY: 90, opacity: 0 }}
               whileHover={{ rotate: -2.5, y: -8 }} whileTap={{ rotate: -2.5, y: -8 }} transition={{ duration: 0.22 }}>
-              <Image src={`/blocos/${b.slug}.webp`} alt={`Bloco cerâmico ${nome} cm`} width={600} height={600}
-                className="card-img" sizes="(max-width:640px) 80vw, (max-width:1024px) 40vw, 22vw" />
+              <Image src={`/blocos/${b.slug}.webp`} alt={`Bloco cerâmico ${estrut ? "estrutural " : ""}${nome} cm`} width={600} height={600}
+                className={`card-img${b.categoria ? " recorte" : ""}`} sizes="(max-width:640px) 80vw, (max-width:1024px) 40vw, 22vw" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -46,7 +48,6 @@ export default function BlockCard({ b, i }: { b: Bloco; i: number }) {
 
       <div className="card-body">
         <h3>{nome}<small> cm</small></h3>
-        <p className="legenda">{b.legenda}</p>
         <dl className="dims">
           <div><dt>Largura</dt><dd>{b.largura}</dd></div>
           <div><dt>Altura</dt><dd>{b.altura}</dd></div>
@@ -54,7 +55,7 @@ export default function BlockCard({ b, i }: { b: Bloco; i: number }) {
         </dl>
         <p className="uso">{b.uso}</p>
         <button className={`quote${noOrcamento ? " added" : ""}`}
-          onClick={() => adicionar({ id: b.slug, nome, medida: `${b.furos} furos` })}>
+          onClick={() => adicionar({ id: b.slug, nome: estrut ? `Estrutural ${nome}` : nome, medida: b.furos ? `${b.furos} furos` : "estrutural" })}>
           {noOrcamento ? `✓ No orçamento (${noOrcamento.toLocaleString("pt-BR")}) · +${PADRAO}` : "+ Adicionar ao orçamento"}
         </button>
       </div>

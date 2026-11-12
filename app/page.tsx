@@ -9,6 +9,7 @@ import OrcamentoDrawer from "@/components/OrcamentoDrawer";
 import Wall from "@/components/Wall";
 import WhatsIcon from "@/components/WhatsIcon";
 import { CONTATOS, waLink } from "@/lib/config";
+import Rodape from "@/components/Rodape";
 
 const marquee = [
   "Tecnologia • Qualidade • Resistência",
@@ -67,10 +68,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer>
-        <Image src="/logo.png" alt="" width={90} height={83} />
-        <p>Fernando Blocos · Itu, SP<br />Qualidade, praticidade e confiança para sua obra.</p>
-      </footer>
+            <Rodape />
 
       <Fab />
       <OrcamentoDrawer />

@@ -64,8 +64,6 @@ em{font-style:normal;color:var(--clay)}
 .x{position:absolute;top:10px;right:14px;background:none;border:0;color:var(--ink);font-size:2rem;cursor:pointer;line-height:1}
 .ok{display:grid;justify-items:center;gap:10px;padding:30px 0;text-align:center;color:var(--zap)}.ok p{color:var(--muted)}.ok h4{color:var(--ink)}
 
-footer{display:grid;justify-items:center;gap:14px;text-align:center;padding:60px 20px 90px;background:var(--sand);color:var(--muted);border-top:2px solid var(--ink)}
-footer img{height:auto}
 .fone{color:var(--clay);font-family:var(--font-display),sans-serif;font-size:2rem;font-weight:700;text-decoration:none;letter-spacing:.02em}
 
 /* ===== BOTÕES: interação de assentar tijolo ===== */
@@ -296,3 +294,69 @@ footer img{height:auto}
 @keyframes estrada{from{transform:translateY(100%)}}
 @keyframes chega{from{transform:translateX(-135%)}80%{transform:none}88%{transform:translateY(4px) rotate(.5deg)}}
 @media (prefers-reduced-motion:reduce){.hero::after{animation:none}}
+
+
+/* ===== ABAS DE CATEGORIA ===== */
+.tabs{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:22px}
+.tab{padding:13px 24px;background:var(--paper2);color:var(--ink);border:2px solid var(--ink);border-radius:4px;cursor:pointer;font-family:var(--font-display),sans-serif;
+  font-weight:700;font-size:1.15rem;text-transform:uppercase;letter-spacing:.03em;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s,background .15s}
+.tab:hover{background:var(--sand)}
+.tab[aria-selected="true"]{background:var(--clay);color:var(--paper2);transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+.tab:focus-visible{outline:3px solid var(--clay);outline-offset:3px}
+.card-img.recorte{filter:drop-shadow(0 12px 8px #2a1a1255)}
+
+
+/* ===== CELULAR: fotos dos blocos um pouco menores no card ===== */
+@media(max-width:640px){
+  .stage{width:66%;height:66%}
+  .stage.planta-wrap{width:80%;height:80%} /* desenho técnico mantém o tamanho */
+}
+
+/* ===== DESKTOP: fotos menores e um pouco acima, longe do botão "Ver medidas" ===== */
+@media(min-width:641px){
+  .stage{width:70%;height:70%}
+  .stage.planta-wrap{width:80%;height:80%}
+}
+.stage:not(.planta-wrap){margin-bottom:8%}
+
+
+/* ===== HERO: cabe inteiro na tela (computador e celular) ===== */
+.placa{gap:clamp(8px,1.8svh,18px);padding:clamp(18px,3.6svh,52px) clamp(22px,5vw,44px)}
+.logo{width:min(46vw,clamp(92px,19svh,190px))}
+.placa h1{font-size:clamp(1.7rem,min(8.4vw,5.6svh),3.7rem)}
+.placa p{font-size:clamp(.84rem,1.9svh,1.02rem);line-height:1.45}
+
+@media(min-width:1100px){
+  .hero-truck{width:clamp(210px,min(27vw,52svh,calc(50vw - 285px)),440px)}
+}
+
+/* celular: a parede cobre o hero inteiro, atrás do card */
+@media (max-width:640px){
+  .hero{display:grid;place-items:center;min-height:100svh;padding:20px 0}
+  .wall{position:absolute;inset:0;height:auto}
+  .placa{margin:0 auto}
+}
+
+/* ===== RODAPÉ ===== */
+.rodape{background:var(--paper);color:var(--muted)}
+.fiadas{height:40px;background-color:var(--clay);
+  background-image:linear-gradient(var(--ink),var(--ink)),linear-gradient(90deg,transparent 52px,var(--ink) 52px),linear-gradient(90deg,transparent 52px,var(--ink) 52px);
+  background-size:100% 4px,56px 50%,56px 50%;background-position:0 50%,0 0,28px 100%;background-repeat:no-repeat,repeat-x,repeat-x}
+.rodape-in{max-width:1100px;margin:0 auto;padding:54px 22px 40px;display:grid;gap:40px}
+.r-marca{display:grid;gap:14px;justify-items:start}
+.r-logo{display:block;width:clamp(120px,16vw,160px);height:auto}
+.r-marca p{font-family:var(--font-serif),Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--clay-d);max-width:30ch;line-height:1.35}
+.r-desde{font-family:var(--font-display),sans-serif;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-size:.9rem}
+.r-col{display:grid;gap:10px;align-content:start}
+.r-col h4{font-family:var(--font-display),sans-serif;font-size:1.3rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);margin-bottom:4px}
+.r-col a,.r-col span{color:var(--muted);text-decoration:none;font-size:.98rem;width:fit-content}
+.r-col a{border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.r-col a:hover{color:var(--ink);border-color:var(--clay)}
+.r-col a:focus-visible,.r-base a:focus-visible{outline:3px solid var(--clay);outline-offset:3px}
+.r-col b{color:var(--ink)}
+.r-base{border-top:1.5px solid #2a1a1226;max-width:1100px;margin:0 auto;padding:18px 22px calc(96px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.85rem}
+.r-base a{color:var(--muted);text-decoration:none}.r-base a:hover{color:var(--ink)}
+@media(min-width:820px){.rodape-in{grid-template-columns:1.4fr 1fr 1.2fr;gap:56px}}
+
+/* espaço entre a parede/estrada do hero e a faixa de slogans */
+.marquee{margin-top:clamp(20px,3vw,36px)}

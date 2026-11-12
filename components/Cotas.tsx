@@ -28,10 +28,21 @@ export default function Cotas({ b }: { b: Bloco }) {
   const m = 0.9 * s, t = 0.7 * s;
   const hw = (W - 2 * m - (cols - 1) * t) / cols, hh = (H - 2 * m - (rows - 1) * t) / rows;
   const holes = [];
-  for (let r = 0; r < rows; r++)
+    for (let r = 0; b.furos && r < rows; r++)
     for (let c = 0; c < cols; c++)
       holes.push(<rect key={`${r}-${c}`} x={x0 + m + c * (hw + t)} y={y0 + m + r * (hh + t)} width={hw} height={hh} rx={1.5}
         fill="#2a1a12" fillOpacity={0.3} stroke="var(--ink)" strokeWidth={1} />);
+        if (b.categoria === "estrutural") {
+    // no estrutural os furos ficam na face de cima, como na foto
+    const P = (u: number, v: number) => `${x0 + u * W + v * dx},${y0 - v * dy}`;
+    const cel: [number, number, number, number][] = [[0.22, 0.78, 0.14, 0.4], [0.22, 0.78, 0.6, 0.86], [0.3, 0.7, 0.44, 0.56]];
+    for (let k = 0; k < 5; k++) { const v = 0.05 + k * 0.19; cel.push([0.07, 0.17, v, v + 0.12], [0.83, 0.93, v, v + 0.12]); }
+    for (let n = 0; n < cel.length; n++) {
+      const [u1, u2, v1, v2] = cel[n];
+      holes.push(<polygon key={`t${n}`} points={`${P(u1, v1)} ${P(u2, v1)} ${P(u2, v2)} ${P(u1, v2)}`}
+        fill="#2a1a12" fillOpacity={0.3} stroke="var(--ink)" strokeWidth={1} />);
+    }
+  }
   const lx1 = x0 + W + 7, ly1 = y0 + H + 12, lx2 = x0 + W + dx + 7, ly2 = y0 + H - dy + 12;
   const st = { stroke: "var(--ink)", strokeWidth: 1.6, strokeLinejoin: "round" as const };
 

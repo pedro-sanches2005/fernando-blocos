@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 // Da carga ao canteiro: a ordem das fotos é a ordem real do caminho do bloco.
 const cenas = [
+  { src: "carregamento", w: 591, h: 422, span: 5, de: 1, t: "Blocos  prontos para sair.", alt: "Pallets de blocos cerâmicos empilhados" },
   { src: "empilhadeira", w: 612, h: 408, span: 7, de: -1, t: "Carregamento com empilhadeira.", alt: "Empilhadeira carregando blocos no caminhão" },
-  { src: "carregamento", w: 591, h: 422, span: 5, de: 1, t: "Blocos em pallets, prontos para sair.", alt: "Pallets de blocos cerâmicos empilhados" },
   { src: "caminhao-fundo", w: 707, h: 353, span: 5, de: -1, t: "Carga amarrada e a caminho.", alt: "Caminhão carregado de blocos com a placa da Fernando Blocos" },
   { src: "caminhao-obra", w: 717, h: 348, span: 7, de: 1, t: "Entrega na porta da obra.", alt: "Caminhão descarregando blocos em frente a uma obra" },
   { src: "obra", w: 592, h: 421, span: 12, de: 0, t: "E a parede sobe.", alt: "Edifício em construção com paredes de bloco cerâmico" },

@@ -4,6 +4,7 @@ export const CONTATOS = [
   { nome: "Fernando", whats: "5511999675271", fone: "(11) 9 9967-5271" },
 ];
 
+export const FIXO = { tel: "551140222048", fone: "(11) 4022-2048" };
 export const waLink = (text?: string, numero: string = CONTATOS[0].whats) =>
   `https://wa.me/${numero}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
