@@ -43,6 +43,15 @@ export default function Cotas({ b }: { b: Bloco }) {
         fill="#2a1a12" fillOpacity={0.3} stroke="var(--ink)" strokeWidth={1} />);
     }
   }
+  if (b.categoria === "canaleta") {
+    // canaleta: dois vãos empilhados (o de cima é a parte que se quebra para concretar)
+    const p = 0.9 * s, f = 0.8 * s, j = b.tipo === "Canaleta J";
+    const ix = x0 + p + (j ? 1.6 * s : 0), iw = W - 2 * p - (j ? 1.6 * s : 0);
+    const meio = y0 + H * 0.42;
+    holes.push(<rect key="c1" x={ix} y={y0 + p} width={iw} height={meio - y0 - p - f / 2} rx={1.5} fill="#2a1a12" fillOpacity={0.3} stroke="var(--ink)" strokeWidth={1} />);
+    holes.push(<rect key="c2" x={ix} y={meio + f / 2} width={iw} height={y0 + H - p - meio - f / 2} rx={1.5} fill="#2a1a12" fillOpacity={0.3} stroke="var(--ink)" strokeWidth={1} />);
+    if (j) holes.push(<rect key="cj" x={x0 + p * 0.6} y={y0 + p} width={1.1 * s} height={H - 2 * p} rx={1} fill="#2a1a12" fillOpacity={0.3} stroke="var(--ink)" strokeWidth={1} />);
+  }
   const lx1 = x0 + W + 7, ly1 = y0 + H + 12, lx2 = x0 + W + dx + 7, ly2 = y0 + H - dy + 12;
   const st = { stroke: "var(--ink)", strokeWidth: 1.6, strokeLinejoin: "round" as const };
 

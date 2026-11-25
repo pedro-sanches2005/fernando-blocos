@@ -5,6 +5,7 @@ import AbrirOrcamento from "@/components/AbrirOrcamento";
 import Fab from "@/components/Fab";
 import Marquee from "@/components/Marquee";
 import Operacao from "@/components/Operacao";
+import Frota from "@/components/Frota";
 import OrcamentoDrawer from "@/components/OrcamentoDrawer";
 import Wall from "@/components/Wall";
 import WhatsIcon from "@/components/WhatsIcon";
@@ -50,6 +51,8 @@ export default function Home() {
       </section>
 
       <Operacao />
+
+      <Frota />
 
       <ComoPedir />
 

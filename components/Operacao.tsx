@@ -17,7 +17,7 @@ export default function Operacao() {
       <header>
         <span className="eyebrow">Da carga à obra</span>
         <h2>Do pátio <em>até a sua obra.</em></h2>
-        <p>Cada etapa do caminho do bloco, do pallet ao canteiro.</p>
+        <p>Um processo que une qualidade, compromisso e excelência em cada etapa.</p>
       </header>
       <div className="oper-grid">
         {cenas.map((c, i) => (

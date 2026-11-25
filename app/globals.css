@@ -360,3 +360,45 @@ em{font-style:normal;color:var(--clay)}
 
 /* espaço entre a parede/estrada do hero e a faixa de slogans */
 .marquee{margin-top:clamp(20px,3vw,36px)}
+/* ===== FROTA: garagem escura, um card por caminhão ===== */
+.frota{--luz:#e0784f;position:relative;background:#1b110c;color:var(--paper);border-block:2px solid var(--ink);overflow:hidden;
+  background-image:radial-gradient(ellipse 70% 50% at 50% 0,#a4442a40,transparent 70%),radial-gradient(ellipse 60% 40% at 50% 100%,#a4442a26,transparent 70%)}
+.frota-in{max-width:1240px;margin:0 auto;padding:90px 18px 80px}
+.frota header{text-align:center;margin-bottom:50px;display:grid;justify-items:center;gap:14px}
+.frota .eyebrow{color:var(--luz)}
+.frota h2{font-size:clamp(2.1rem,5.6vw,3.9rem);max-width:20ch}
+.frota em{color:var(--luz)}
+.frota header p{color:#f1e9dbb3;max-width:52ch;line-height:1.5}
+.frota-grid{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:700px){.frota-grid{grid-template-columns:1fr 1fr}.caminhao:nth-child(5){grid-column:1/-1}}
+@media(min-width:1000px){.frota-grid{grid-template-columns:repeat(6,1fr)}.caminhao{grid-column:span 2}.caminhao.grande{grid-column:span 3}.caminhao:nth-child(5){grid-column:span 2}}
+
+.caminhao{position:relative;display:flex;flex-direction:column;overflow:hidden;border:2px solid #f1e9db2e;border-radius:8px;
+  background:radial-gradient(ellipse 80% 70% at 50% 35%,#3a261b,#21150f 75%);box-shadow:0 0 0 var(--clay);
+  transition:translate .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s cubic-bezier(.2,.8,.2,1),border-color .25s}
+.c-num{position:absolute;top:12px;left:16px;z-index:2;font-family:var(--font-display),sans-serif;font-weight:800;font-size:2.6rem;line-height:.8;color:#f1e9db24;transition:color .25s}
+.c-palco{position:relative;aspect-ratio:16/10;display:grid;align-items:end;justify-items:center;padding:18px 14px 0}
+.caminhao.grande .c-palco{aspect-ratio:16/9.5}
+.c-estrada{position:absolute;left:0;right:0;bottom:0;height:22%;background:linear-gradient(#0f0907,#170e0a);border-top:2px solid #f1e9db1f}
+.c-estrada::after{content:"";position:absolute;left:0;right:0;top:50%;height:3px;transform:translateY(-50%);opacity:.5;
+  background:repeating-linear-gradient(90deg,var(--mortar) 0 26px,transparent 26px 52px)}
+.c-foto{position:relative;z-index:1;width:92%;margin-bottom:6%}
+.c-foto img{display:block;width:100%;height:auto;filter:drop-shadow(0 14px 10px #000000b0);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.c-info{position:relative;z-index:1;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:14px 20px 18px;border-top:1.5px solid #f1e9db1a;background:#1b110c}
+.c-info small{order:2;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#f1e9db80;font-weight:700}
+.c-info h3{font-size:1.9rem;font-weight:700;color:var(--paper)}
+.caminhao.grande .c-info h3{font-size:2.3rem}
+
+@media (hover:hover){
+  .caminhao:hover{translate:-4px -4px;border-color:var(--luz);box-shadow:8px 8px 0 var(--clay)}
+  .caminhao:hover .c-num{color:var(--luz)}
+  .caminhao:hover .c-foto img{transform:translateX(calc(var(--dir) * 18px));animation:motor .35s linear infinite}
+  .caminhao:hover .c-estrada::after{animation:pista .5s linear infinite}
+}
+@keyframes motor{50%{translate:0 -1.5px}}
+@keyframes pista{to{background-position:calc(var(--dir) * -52px) 0}}
+
+.frota-fecho{margin:56px auto 0;max-width:24ch;text-align:center;font-family:var(--font-display),sans-serif;text-transform:uppercase;font-weight:700;
+  font-size:clamp(1.8rem,4.4vw,3rem);line-height:1}
+.frota-fecho::before{content:"";display:block;width:64px;height:4px;margin:0 auto 22px;background:var(--luz)}
+@media (prefers-reduced-motion:reduce){.caminhao,.c-foto img{transition:none}.caminhao:hover .c-foto img,.caminhao:hover .c-estrada::after{animation:none}}
