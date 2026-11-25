@@ -563,3 +563,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 /* logo do rodapé leva ao topo */
 .r-logo-link{display:inline-block;border-radius:6px;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 .r-logo-link:hover{transform:translateY(-4px) rotate(-3deg)}
+
+/* desenho técnico: um pouco acima, para o botão "Ver foto" não cobrir as cotas */
+.stage.planta-wrap{width:84%;height:74%;margin-bottom:12%}

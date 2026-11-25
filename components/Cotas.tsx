@@ -1,4 +1,14 @@
-import { num, type Bloco } from "@/data/blocos";
+import { blocos, num, type Bloco } from "@/data/blocos";
+
+// Escala única para todos os desenhos: o mesmo centímetro tem o mesmo tamanho em qualquer card,
+// então um bloco de 39 aparece mais comprido que um de 29, e a altura 19 é igual em todos.
+const MAX_W = Math.max(...blocos.map((b) => num(b.largura)));
+const MAX_H = Math.max(...blocos.map((b) => num(b.altura)));
+const MAX_L = Math.max(...blocos.map((b) => num(b.comprimento)));
+const ESCALA = Math.min(200 / (MAX_W + 0.433 * MAX_L), 170 / (MAX_H + 0.25 * MAX_L));
+const TOPO = 22; // espaço para "medidas em cm" no alto
+const AREA_W = (MAX_W + 0.433 * MAX_L) * ESCALA, AREA_H = (MAX_H + 0.25 * MAX_L) * ESCALA;
+const VW = 40 + AREA_W + 54, VH = TOPO + 14 + AREA_H + 44;
 
 const GRID: Record<number, [number, number]> = { 6: [2, 3], 9: [3, 3], 12: [3, 4] };
 const FONT = { fontFamily: "var(--font-display), sans-serif", fontWeight: 700, fontSize: 16 } as const;
@@ -20,10 +30,11 @@ function Cota({ x1, y1, x2, y2, label, tx, ty, rot = 0 }: {
 
 export default function Cotas({ b }: { b: Bloco }) {
   const w = num(b.largura), h = num(b.altura), l = num(b.comprimento);
-  const s = Math.min(200 / (w + 0.433 * l), 170 / (h + 0.25 * l));
+  const s = ESCALA;
   const W = w * s, H = h * s, dx = l * 0.433 * s, dy = l * 0.25 * s;
-  const x0 = 40, y0 = dy + 14;
-  const vw = x0 + W + dx + 54, vh = y0 + H + 56;
+  // centraliza o bloco na área reservada para o maior bloco do catálogo
+  const x0 = 40 + (AREA_W - (W + dx)) / 2, y0 = TOPO + 14 + (AREA_H - (H + dy)) / 2 + dy;
+  const vw = VW, vh = VH;
   const [cols, rows] = GRID[b.furos] ?? [3, 3];
   const m = 0.9 * s, t = 0.7 * s;
   const hw = (W - 2 * m - (cols - 1) * t) / cols, hh = (H - 2 * m - (rows - 1) * t) / rows;
@@ -65,7 +76,7 @@ export default function Cotas({ b }: { b: Bloco }) {
       <Cota x1={x0} y1={y0 + H + 20} x2={x0 + W} y2={y0 + H + 20} label={b.largura} tx={x0 + W / 2} ty={y0 + H + 38} />
       <Cota x1={x0 - 20} y1={y0} x2={x0 - 20} y2={y0 + H} label={b.altura} tx={x0 - 27} ty={y0 + H / 2 + 5} rot={-90} />
       <Cota x1={lx1} y1={ly1} x2={lx2} y2={ly2} label={b.comprimento} tx={(lx1 + lx2) / 2 + 7} ty={(ly1 + ly2) / 2 + 14} rot={-30} />
-      <text x={vw / 2} y={vh - 4} textAnchor="middle" fill="var(--muted)" style={{ fontSize: 10, letterSpacing: ".12em", textTransform: "uppercase" }}>medidas em cm</text>
+      <text x={8} y={14} textAnchor="start" fill="var(--muted)" style={{ fontSize: 10, letterSpacing: ".12em", textTransform: "uppercase" }}>medidas em cm</text>
     </svg>
   );
 }
