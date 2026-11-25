@@ -15,3 +15,14 @@ export const INFO = {
   cidades: [] as string[], // ex.: ["Itu", "Salto"]
   maps: "",                // link do Google Maps (botão "Como chegar")
 };
+
+// Dados da empresa (obrigatórios por lei em site que vende: Decreto 7.962/2013 e LGPD).
+// ⚠ PREENCHA razão social, CNPJ e email. Enquanto estiverem vazios, não aparecem no site.
+export const EMPRESA = {
+  nome: "Fernando Blocos",
+  razaoSocial: "", // ex.: "Fernando Blocos Comércio de Materiais Ltda."
+  cnpj: "",        // ex.: "00.000.000/0001-00"
+  email: "",       // email para pedidos e para pedidos de dados pessoais (LGPD)
+  cidade: "Itu/SP",
+};
+export const ATUALIZADO = "25 de novembro de 2026"; // data da última revisão das páginas legais

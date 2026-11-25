@@ -1,11 +1,12 @@
 import Image from "next/image";
-import { CONTATOS, FIXO, INFO, waLink } from "@/lib/config";
+import Link from "next/link";
+import { CONTATOS, EMPRESA, FIXO, INFO, waLink } from "@/lib/config";
 
 const LINKS = [
-  { href: "#linha", t: "Catálogo de blocos" },
-  { href: "#entrega", t: "Da carga à obra" },
-  { href: "#como-pedir", t: "Como pedir" },
-  { href: "#contato", t: "Contato" },
+  { href: "/#linha", t: "Catálogo de blocos" },
+  { href: "/#entrega", t: "Da carga à obra" },
+  { href: "/#como-pedir", t: "Como pedir" },
+  { href: "/#contato", t: "Contato" },
 ];
 
 export default function Rodape() {
@@ -14,7 +15,9 @@ export default function Rodape() {
       <div className="fiadas" aria-hidden="true" />
       <div className="rodape-in">
         <div className="r-marca">
-       <Image src="/logo.png" alt="Fernando Blocos" width={160} height={148} className="r-logo" />
+       <a href="/#top" className="r-logo-link" aria-label="Fernando Blocos: voltar ao início">
+            <Image src="/logo.png" alt="" width={160} height={148} className="r-logo" />
+          </a>
           <p>Qualidade, praticidade e confiança para sua obra.</p>
           <span className="r-desde">Desde 1988 · Itu, SP</span>
         </div>
@@ -35,11 +38,22 @@ export default function Rodape() {
           {INFO.endereco && <span>{INFO.endereco}</span>}
           {INFO.horario && <span>{INFO.horario}</span>}
           {INFO.maps && <a href={INFO.maps} target="_blank" rel="noopener noreferrer">Como chegar</a>}
+          {EMPRESA.email && <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>}
         </div>
+
+        <nav className="r-col" aria-label="Informações legais">
+          <h4>Seus direitos</h4>
+          <Link href="/privacidade">Política de privacidade</Link>
+          <Link href="/termos">Termos de uso</Link>
+          <Link href="/trocas">Trocas, devoluções e reembolso</Link>
+        </nav>
       </div>
       <div className="r-base">
-        <span>© {new Date().getFullYear()} Fernando Blocos · Itu, SP</span>
-        <a href="#">Voltar ao topo ↑</a>
+        <span>
+          © {new Date().getFullYear()} {EMPRESA.razaoSocial || EMPRESA.nome}
+          {EMPRESA.cnpj && <> · CNPJ {EMPRESA.cnpj}</>} · {INFO.endereco || EMPRESA.cidade}
+        </span>
+        <a href="#top">Voltar ao topo ↑</a>
       </div>
     </footer>
   );

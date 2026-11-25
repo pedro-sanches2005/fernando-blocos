@@ -11,6 +11,7 @@ import Wall from "@/components/Wall";
 import WhatsIcon from "@/components/WhatsIcon";
 import { CONTATOS, waLink } from "@/lib/config";
 import Rodape from "@/components/Rodape";
+import Xicara from "@/components/Xicara";
 
 const marquee = [
   "Tecnologia • Qualidade • Resistência",
@@ -38,6 +39,7 @@ export default function Home() {
         </div>
       </section>
 
+      <div id="conteudo" tabIndex={-1} />
       <Marquee frases={marquee} />
 
       <section id="catalogo" className="catalogo">
@@ -57,7 +59,7 @@ export default function Home() {
       <ComoPedir />
 
       <section id="contato" className="contato-sec">
-        <Image src="/fotos/xicara.webp" alt="Xícara da Fernando Blocos, desde 1988" width={522} height={478} className="xicara" />
+        <Xicara />
         <h2>Vai construir ou reformar?</h2>
         <p>Conte com a qualidade e a confiança da Fernando Blocos! Entre em contato e faça seu pedido.</p>
         <div className="contatos">

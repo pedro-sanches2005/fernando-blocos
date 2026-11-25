@@ -23,7 +23,8 @@ export default function Catalogo() {
       <div className="chips" role="group" aria-label="Filtrar por espessura da parede">
         {["Todos", ...larguras].map((x) => (
           <button key={x} className={`chip${f === x ? " on" : ""}`} aria-pressed={f === x} onClick={() => setF(x)}>
-            {x === "Todos" ? "Todos" : `${x} cm`}
+            {f === x && <motion.span layoutId={`chip-${cat}`} className="chip-bg" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
+            <span className="chip-t">{x === "Todos" ? "Todos" : `${x} cm`}</span>
           </button>
         ))}
       </div>

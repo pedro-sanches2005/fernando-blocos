@@ -3,19 +3,17 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import type { Bloco } from "@/data/blocos";
+import { rotulo, type Bloco } from "@/data/blocos";
 import Cotas from "./Cotas";
-import { adicionar, useOrcamento, PADRAO } from "@/lib/orcamento";
+import QtdButton from "./QtdButton";
 
 export default function BlockCard({ b, i }: { b: Bloco; i: number }) {
-  const itens = useOrcamento();
-  const noOrcamento = itens.find((i) => i.id === b.slug)?.qtd ?? 0;
   const [medidas, setMedidas] = useState(false);
   const estrut = b.categoria === "estrutural";
   const canaleta = b.categoria === "canaleta";
   const nome = `${b.largura}×${b.altura}×${b.comprimento}`;
-  const etiqueta = b.tipo ?? (b.furos ? `${b.furos} furos` : "Estrutural");
-  const nomePedido = canaleta ? `Canaleta${b.tipo && b.tipo !== "Canaleta" ? ` ${b.tipo.replace("Canaleta ", "")}` : ""} ${nome}` : estrut ? `Estrutural ${nome}` : nome;
+  const etiqueta = canaleta ? "Canaleta" : b.furos ? `${b.furos} furos` : "Estrutural";
+  const r = rotulo(b);
 
   return (
     <motion.article
@@ -39,7 +37,7 @@ export default function BlockCard({ b, i }: { b: Bloco; i: number }) {
             <motion.div key="f" className="stage" style={{ transformPerspective: 700 }}
               initial={{ rotateY: -90, opacity: 0 }} animate={{ rotateY: 0, opacity: 1 }} exit={{ rotateY: 90, opacity: 0 }}
               whileHover={{ rotate: -2.5, y: -8 }} whileTap={{ rotate: -2.5, y: -8 }} transition={{ duration: 0.22 }}>
-              <Image src={`/blocos/${b.slug}.webp`} alt={canaleta ? `${nomePedido} cm, cerâmica` : `Bloco cerâmico ${estrut ? "estrutural " : ""}${nome} cm`} width={600} height={600}
+              <Image src={`/blocos/${b.slug}.webp`} alt={canaleta ? `Canaleta cerâmica ${nome} cm (${r.medida})` : `Bloco cerâmico ${estrut ? "estrutural " : ""}${nome} cm`} width={600} height={600}
                 className={`card-img${b.categoria ? " recorte" : ""}`} sizes="(max-width:640px) 80vw, (max-width:1024px) 40vw, 22vw" />
             </motion.div>
           )}
@@ -57,10 +55,7 @@ export default function BlockCard({ b, i }: { b: Bloco; i: number }) {
           <div><dt>Comprim.</dt><dd>{b.comprimento}</dd></div>
         </dl>
         <p className="uso">{b.uso}</p>
-        <button className={`quote${noOrcamento ? " added" : ""}`}
-          onClick={() => adicionar({ id: b.slug, nome: nomePedido, medida: canaleta ? "canaleta" : b.furos ? `${b.furos} furos` : "estrutural" })}>
-          {noOrcamento ? `✓ No orçamento (${noOrcamento.toLocaleString("pt-BR")}) · +${PADRAO}` : "+ Adicionar ao orçamento"}
-        </button>
+        <QtdButton id={b.slug} nome={r.nome} medida={r.medida} />
       </div>
 
     </motion.article>

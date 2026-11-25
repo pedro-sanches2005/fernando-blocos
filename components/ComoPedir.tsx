@@ -1,4 +1,5 @@
 import { CONTATOS, INFO, waLink } from "@/lib/config";
+import Passos from "./Passos";
 
 const passos = [
   ["1", "Escolha o modelo e as medidas", "Veja todos os blocos do catálogo, com as medidas de cada um."],
@@ -16,11 +17,7 @@ export default function ComoPedir() {
         <p>Na Fernando Blocos, construir começa com boas escolhas.</p>
       </header>
 
-      <ol className="passos">
-        {passos.map(([nº, t, d]) => (
-          <li key={nº}><b>{nº}</b><h3>{t}</h3><p>{d}</p></li>
-        ))}
-      </ol>
+      <Passos passos={passos} />
 
       <div className="info">
         {tem ? (

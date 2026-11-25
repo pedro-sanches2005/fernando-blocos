@@ -42,6 +42,19 @@ export function mudarQtd(id: string, qtd: number) {
   salvar(qtd <= 0 ? itens.filter((x) => x.id !== id) : itens.map((x) => (x.id === id ? { ...x, qtd } : x)));
 }
 export const remover = (id: string) => mudarQtd(id, 0);
+
+export const MAXQ = 99999;
+// Soma (ou subtrai) direto do valor atual. Devolve false quando não dá (passou do mínimo/máximo).
+export function somar(id: string, delta: number, minimo = 1) {
+  carregar();
+  const it = itens.find((x) => x.id === id);
+  if (!it) return false;
+  const novo = Math.min(MAXQ, it.qtd + delta);
+  if (novo < minimo || novo === it.qtd) return false;
+  mudarQtd(id, novo);
+  return true;
+}
+export const qtdDe = (id: string) => { carregar(); return itens.find((x) => x.id === id)?.qtd ?? 0; };
 export function limpar() { carregar(); salvar(EMPTY); }
 
 // Abre a gaveta "Meu orçamento" a partir de qualquer botão do site.

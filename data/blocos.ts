@@ -59,3 +59,12 @@ export const blocos: Bloco[] = [
 ];
 
 export const num = (s: string) => parseFloat(s.replace(",", "."));
+
+// Como o produto aparece no orçamento e na mensagem do WhatsApp.
+const TIPO_CANALETA: Record<string, string> = { "Canaleta": "simples", "Estrutural": "estrutural", "Canaleta J": "tipo J" };
+export function rotulo(b: Bloco) {
+  const m = `${b.largura}×${b.altura}×${b.comprimento}`;
+  if (b.categoria === "canaleta") return { nome: `Canaleta ${m}`, medida: TIPO_CANALETA[b.tipo ?? ""] ?? "canaleta", bloco: false };
+  if (b.categoria === "estrutural") return { nome: `Estrutural ${m}`, medida: "estrutural", bloco: true };
+  return { nome: m, medida: `${b.furos} furos`, bloco: true };
+}
