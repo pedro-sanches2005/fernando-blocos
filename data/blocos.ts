@@ -43,19 +43,19 @@ export const blocos: Bloco[] = [
   { slug: "estrutural-19x19x39", categoria: "estrutural", largura: "19", altura: "19", comprimento: "39", furos: 0,
      uso: "Alvenaria estrutural" },
 
-  // ===== Canaletas =====
-  // ⚠ MEDIDAS PROVISÓRIAS: confirmar com o Fernando e ajustar largura/altura/comprimento.
-  // Se mudar a medida, renomeie também a foto em public/blocos/ para o novo slug.
-  { slug: "canaleta-14x19x29", categoria: "canaleta", tipo: "Canaleta", largura: "14", altura: "19", comprimento: "29", furos: 0,
-     uso: "Vergas, contravergas e cintas em alvenaria de vedação" },
-  { slug: "canaleta-estrutural-14x19x29", categoria: "canaleta", tipo: "Estrutural", largura: "14", altura: "19", comprimento: "29", furos: 0,
-     uso: "Cintas e vergas em alvenaria estrutural" },
-  { slug: "canaleta-estrutural-19x19x29", categoria: "canaleta", tipo: "Estrutural", largura: "19", altura: "19", comprimento: "29", furos: 0,
-     uso: "Cintas e vergas em paredes de 19 cm" },
-  { slug: "canaleta-j-14x19x29", categoria: "canaleta", tipo: "Canaleta J", largura: "14", altura: "19", comprimento: "29", furos: 0,
-     uso: "Apoio de laje na última fiada da parede" },
-  { slug: "canaleta-j-19x19x29", categoria: "canaleta", tipo: "Canaleta J", largura: "19", altura: "19", comprimento: "29", furos: 0,
-     uso: "Apoio de laje em paredes de 19 cm" },
+  // ===== Canaletas ===== (medidas confirmadas; a foto de cada uma é public/blocos/<slug>.webp)
+  { slug: "canaleta-14x19x29", categoria: "canaleta", largura: "14", altura: "19", comprimento: "29", furos: 0,
+     uso: "Vergas, contravergas e cintas em paredes de 14 cm" },
+  { slug: "canaleta-11-5x19x29", categoria: "canaleta", largura: "11,5", altura: "19", comprimento: "29", furos: 0,
+     uso: "Vergas, contravergas e cintas em paredes de 11,5 cm" },
+  { slug: "canaleta-19x19x29", categoria: "canaleta", largura: "19", altura: "19", comprimento: "29", furos: 0,
+     uso: "Vergas, contravergas e cintas em paredes de 19 cm" },
+  { slug: "canaleta-14x19x39", categoria: "canaleta", largura: "14", altura: "19", comprimento: "39", furos: 0,
+     uso: "Vergas, contravergas e cintas em paredes de 14 cm" },
+  { slug: "canaleta-11-5x19x39", categoria: "canaleta", largura: "11,5", altura: "19", comprimento: "39", furos: 0,
+     uso: "Vergas, contravergas e cintas em paredes de 11,5 cm" },
+  { slug: "canaleta-19x19x39", categoria: "canaleta", largura: "19", altura: "19", comprimento: "39", furos: 0,
+     uso: "Vergas, contravergas e cintas em paredes de 19 cm" },
 ];
 
 export const num = (s: string) => parseFloat(s.replace(",", "."));

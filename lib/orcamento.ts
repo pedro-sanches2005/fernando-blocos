@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from "react";
+import { blocos } from "@/data/blocos";
 
 export type Item = { id: string; nome: string; medida: string; qtd: number };
 
@@ -15,7 +16,8 @@ function carregar() {
   carregado = true;
   try {
     const v = JSON.parse(localStorage.getItem(KEY) || "[]");
-    itens = Array.isArray(v) ? v : EMPTY;
+    // descarta produtos que saíram do catálogo (ex.: medidas antigas de canaleta)
+    itens = Array.isArray(v) ? v.filter((x: Item) => blocos.some((b) => b.slug === x.id)) : EMPTY;
   } catch { itens = EMPTY; }
 }
 function salvar(novo: Item[]) {
