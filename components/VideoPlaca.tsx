@@ -1,8 +1,10 @@
 "use client";
 // Vídeo do pátio dentro de um celular, no estilo Reels. Sem números falsos de curtidas/seguidores:
 // cada botão faz algo de verdade (curtir é só visual; comentar abre o WhatsApp; enviar compartilha o site).
-// O vídeo só baixa/toca quando aparece na tela e pausa fora dela. Tocar no vídeo pausa; dois toques curtem.
+// O vídeo só baixa/toca quando aparece na tela e pausa fora dela.
+// Um toque abre o vídeo grande (tela cheia); dois toques curtem; o botão de pausa fica na lateral.
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { CONTATOS, waLink } from "@/lib/config";
@@ -15,6 +17,8 @@ export default function VideoPlaca() {
   const [coracao, setCoracao] = useState(0); // coração grande do duplo toque
   const [aviso, setAviso] = useState<"" | "pausa" | "play">("");
   const [prog, setProg] = useState(0);
+  const [grande, setGrande] = useState(false); // vídeo ampliado
+  const [jaViu, setJaViu] = useState(false);   // some o "toque para assistir" depois do 1º clique
   const pausadoPeloUsuario = useRef(false);
   const toque = useRef<number | undefined>(undefined);
   const reduz = useReducedMotion();
@@ -37,10 +41,15 @@ export default function VideoPlaca() {
     else { pausadoPeloUsuario.current = true; v.pause(); setAviso("pausa"); }
     window.setTimeout(() => setAviso(""), 600);
   }
-  // um toque pausa; dois toques curtem (como no Instagram)
+  function ampliar() { setJaViu(true); setGrande(true); ref.current?.pause(); }
+  function fecharGrande() {
+    setGrande(false);
+    if (!pausadoPeloUsuario.current && !reduz) ref.current?.play().catch(() => {});
+  }
+  // um toque abre o vídeo grande; dois toques curtem (como no Instagram)
   function tocarTela() {
     if (toque.current) { clearTimeout(toque.current); toque.current = undefined; setCurtido(true); setCoracao(Date.now()); return; }
-    toque.current = window.setTimeout(() => { toque.current = undefined; alternar(); }, 260);
+    toque.current = window.setTimeout(() => { toque.current = undefined; ampliar(); }, 260);
   }
   async function compartilhar() {
     const url = window.location.origin;
@@ -51,6 +60,13 @@ export default function VideoPlaca() {
   }
 
   return (
+    <div className="cel-wrap">
+    <motion.p className="cel-chamada" aria-hidden initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.6, duration: 0.5 }}>
+      Veja como sai a sua carga!
+      <svg className="cel-seta" viewBox="0 0 120 80" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M110 10 C 90 60, 50 70, 14 58" /><path d="M28 48 L 12 58 L 28 70" />
+      </svg>
+    </motion.p>
     <motion.figure className="celular" aria-label="Vídeo do pátio da Fernando Blocos"
       initial={{ opacity: 0, y: 50, rotate: -8 }} whileInView={{ opacity: 1, y: 0, rotate: -3 }} viewport={{ once: true, margin: "-60px" }}
       transition={{ type: "spring", stiffness: 130, damping: 15 }}>
@@ -63,7 +79,18 @@ export default function VideoPlaca() {
           <source src="/videos/placa-v2.mp4" type="video/mp4" />
         </video>
 
-        <button type="button" className="cel-toque" onClick={tocarTela} aria-label={tocando ? "Pausar vídeo" : "Tocar vídeo"} />
+        <button type="button" className="cel-toque" onClick={tocarTela} aria-label="Assistir ao vídeo em tela cheia" />
+
+        {/* chamada para tocar: some depois que a pessoa abre o vídeo */}
+        <AnimatePresence>
+          {!jaViu && (
+            <motion.span className="cel-cta" aria-hidden initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ delay: 1.2, duration: 0.35 }}>
+              <i className="cel-onda" /><i className="cel-onda d2" />
+              <b><Ic.playP /> Toque para assistir</b>
+            </motion.span>
+          )}
+        </AnimatePresence>
 
         <AnimatePresence>
           {aviso && (
@@ -93,7 +120,7 @@ export default function VideoPlaca() {
           </button>
           <a href={waLink(`Olá, ${CONTATOS[0].nome}! Vi o vídeo no site da Fernando Blocos e quero um orçamento.`)} target="_blank" rel="noopener noreferrer" aria-label="Comentar pelo WhatsApp"><Ic.comentario /></a>
           <button type="button" onClick={compartilhar} aria-label="Compartilhar o site"><Ic.enviar /></button>
-          <span aria-hidden><Ic.mais /></span>
+          <button type="button" onClick={alternar} aria-label={tocando ? "Pausar vídeo" : "Tocar vídeo"}>{tocando ? <Ic.pausaP /> : <Ic.playP />}</button>
         </div>
 
         {/* perfil, legenda e música */}
@@ -110,6 +137,36 @@ export default function VideoPlaca() {
         <div className="cel-prog" aria-hidden><i style={{ transform: `scaleX(${prog})` }} /></div>
       </div>
     </motion.figure>
+    {grande && typeof document !== "undefined" && createPortal(<Grande onClose={fecharGrande} />, document.body)}
+    </div>
+  );
+}
+
+// Vídeo grande, em tela cheia, com os botões de pedido logo abaixo.
+function Grande({ onClose }: { onClose: () => void }) {
+  const fechar = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const volta = document.activeElement as HTMLElement | null;
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", esc);
+    fechar.current?.focus();
+    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", esc); volta?.focus?.(); };
+  }, [onClose]);
+  return (
+    <motion.div className="vg-fundo" onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <motion.div className="vg" role="dialog" aria-modal="true" aria-label="Vídeo do pátio da Fernando Blocos" onClick={(e) => e.stopPropagation()}
+        initial={{ scale: 0.85, y: 30, opacity: 0 }} animate={{ scale: 1, y: 0, opacity: 1 }} transition={{ type: "spring", stiffness: 260, damping: 24 }}>
+        <button ref={fechar} type="button" className="vg-x" onClick={onClose} aria-label="Fechar vídeo">×</button>
+        <video autoPlay muted loop playsInline controls poster="/videos/placa-v2-poster.webp">
+          <source src="/videos/placa-v2.mp4" type="video/mp4" />
+        </video>
+        <div className="vg-acoes">
+          <button type="button" className="btn" onClick={() => { onClose(); abrirOrcamento(); }}>Pedir orçamento</button>
+          <a className="btn vg-zap" href={waLink(`Olá, ${CONTATOS[0].nome}! Vi o vídeo no site da Fernando Blocos e quero um orçamento.`)} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -136,6 +193,8 @@ const Ic = {
   ),
   comentario: () => <svg {...sv} width={27} height={27}><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.2-4.2A8.5 8.5 0 1 1 20.5 11.5Z" /></svg>,
   enviar: () => <svg {...sv} width={26} height={26}><path d="M21.5 3 10 13.5M21.5 3l-7 18-4.5-7.5L2.5 9z" /></svg>,
+  pausaP: () => <svg viewBox="0 0 24 24" width={24} height={24} fill="currentColor" aria-hidden><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>,
+  playP: () => <svg viewBox="0 0 24 24" width={24} height={24} fill="currentColor" aria-hidden><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z" /></svg>,
   mais: () => <svg {...sv} width={24} height={24} fill="currentColor" stroke="none"><circle cx="5" cy="12" r="2" /><circle cx="12" cy="12" r="2" /><circle cx="19" cy="12" r="2" /></svg>,
   camera: () => <svg {...sv} width={24} height={24}><rect x="3" y="6" width="18" height="14" rx="4" /><circle cx="12" cy="13" r="3.5" /><path d="M8 6l1.5-2h5L16 6" /></svg>,
   nota: () => <svg {...sv} width={14} height={14}><path d="M9 18V5l11-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="17" cy="16" r="3" /></svg>,
