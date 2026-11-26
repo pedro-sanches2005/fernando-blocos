@@ -3,7 +3,7 @@ import Link from "next/link";
 import Legal from "@/components/Legal";
 import { CanalContato, Identificacao } from "@/components/CanalContato";
 
-export const metadata: Metadata = { title: "Política de Privacidade | Fernando Blocos", description: "Como a Fernando Blocos trata seus dados pessoais, conforme a LGPD." };
+export const metadata: Metadata = { alternates: { canonical: "/privacidade" }, title: "Política de Privacidade | Fernando Blocos", description: "Como a Fernando Blocos trata seus dados pessoais, conforme a LGPD." };
 
 export default function Privacidade() {
   return (

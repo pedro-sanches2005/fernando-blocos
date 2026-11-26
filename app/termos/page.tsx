@@ -3,7 +3,7 @@ import Link from "next/link";
 import Legal from "@/components/Legal";
 import { CanalContato, Identificacao } from "@/components/CanalContato";
 
-export const metadata: Metadata = { title: "Termos de Uso | Fernando Blocos", description: "Regras de uso do catálogo online da Fernando Blocos." };
+export const metadata: Metadata = { alternates: { canonical: "/termos" }, title: "Termos de Uso | Fernando Blocos", description: "Regras de uso do catálogo online da Fernando Blocos." };
 
 export default function Termos() {
   return (

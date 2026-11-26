@@ -3,7 +3,7 @@ import Link from "next/link";
 import Legal from "@/components/Legal";
 import { CanalContato } from "@/components/CanalContato";
 
-export const metadata: Metadata = { title: "Trocas, devoluções e reembolso | Fernando Blocos", description: "Seus direitos de troca, devolução e reembolso nas compras da Fernando Blocos." };
+export const metadata: Metadata = { alternates: { canonical: "/trocas" }, title: "Trocas, devoluções e reembolso | Fernando Blocos", description: "Seus direitos de troca, devolução e reembolso nas compras da Fernando Blocos." };
 
 export default function Trocas() {
   return (

@@ -26,3 +26,6 @@ export const EMPRESA = {
   cidade: "Itu/SP",
 };
 export const ATUALIZADO = "25 de novembro de 2026"; // data da última revisão das páginas legais
+
+// Endereço oficial do site (o domínio sem "www" redireciona para este).
+export const SITE_URL = "https://www.fernandoblocos.com.br";

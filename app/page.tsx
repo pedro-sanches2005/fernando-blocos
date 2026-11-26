@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Catalogo from "@/components/Catalogo";
 import ComoPedir from "@/components/ComoPedir";
@@ -13,6 +14,8 @@ import { CONTATOS, waLink } from "@/lib/config";
 import Rodape from "@/components/Rodape";
 import Xicara from "@/components/Xicara";
 import VideoPlaca from "@/components/VideoPlaca";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 const marquee = [
   "Tecnologia • Qualidade • Resistência",
