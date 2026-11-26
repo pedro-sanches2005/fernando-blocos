@@ -566,3 +566,56 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 /* desenho técnico: um pouco acima, para o botão "Ver foto" não cobrir as cotas */
 .stage.planta-wrap{width:84%;height:74%;margin-bottom:12%}
+
+/* ===== CONTATO: vídeo da placa ao lado do texto ===== */
+.contato-grid{display:grid;gap:34px;justify-items:center;width:100%;max-width:1000px}
+.contato-txt{display:grid;justify-items:center;gap:16px}
+@media(min-width:900px){
+  .contato-grid{grid-template-columns:310px 1fr;align-items:center;gap:60px;text-align:left}
+  .contato-txt{justify-items:start}
+  .contatos{justify-content:flex-start}
+}
+
+/* ===== CELULAR ESTILO REELS (vídeo do pátio) ===== */
+.celular{position:relative;margin:0;width:min(76vw,290px);padding:9px;border-radius:46px;background:#141010;
+  box-shadow:0 0 0 2px #3a2f2a,0 0 0 4px var(--ink),10px 12px 0 4px var(--ink),0 30px 50px -10px #00000080}
+.celular::before,.celular::after{content:"";position:absolute;right:-6px;width:4px;border-radius:0 3px 3px 0;background:#2b2320}
+.celular::before{top:120px;height:64px}.celular::after{top:200px;height:40px}
+.cel-ilha{position:absolute;top:18px;left:50%;z-index:6;width:84px;height:24px;margin-left:-42px;border-radius:99px;background:#000}
+.cel-tela{position:relative;aspect-ratio:478/850;border-radius:37px;overflow:hidden;background:#000;color:#fff;isolation:isolate}
+.cel-tela::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(#0000008c,transparent 22%,transparent 58%,#000000b3)}
+.cel-tela video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cel-toque{position:absolute;inset:0;z-index:2;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cel-toque:focus-visible{outline:3px solid #fff;outline-offset:-6px;border-radius:37px}
+.cel-status,.cel-topo,.cel-acoes,.cel-info,.cel-prog,.cel-aviso,.cel-coracao{position:absolute;z-index:3}
+.cel-status{top:14px;left:26px;right:22px;min-height:16px;display:flex;font-variant-numeric:tabular-nums;justify-content:space-between;align-items:center;font:600 .82rem var(--font-body),sans-serif;pointer-events:none}
+.cel-status span{display:flex;gap:5px;align-items:center}
+.cel-topo{top:50px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+.cel-topo b{font:700 1.25rem var(--font-body),sans-serif;letter-spacing:-.01em;text-transform:none}
+.cel-acoes{right:10px;bottom:96px;display:grid;gap:18px;justify-items:center}
+.cel-acoes a,.cel-acoes button,.cel-acoes>span{display:grid;place-items:center;width:38px;height:38px;background:none;border:0;color:#fff;cursor:pointer;
+  filter:drop-shadow(0 1px 2px #0008);-webkit-tap-highlight-color:transparent}
+.cel-acoes a:focus-visible,.cel-acoes button:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:50%}
+.cel-acoes>span{cursor:default}
+.cel-info{left:14px;right:58px;bottom:22px;display:grid;gap:8px;text-align:left}
+.cel-perfil{display:flex;align-items:center;gap:8px;min-width:0}
+.cel-avatar{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--paper);border:2px solid #fff;overflow:hidden}
+.cel-avatar img{width:28px;height:auto}
+.cel-perfil b{font:700 .88rem var(--font-body),sans-serif;text-transform:none;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 2px #0008}
+.cel-seguir{flex:none;padding:4px 10px;border:1.5px solid #fff;border-radius:8px;background:#ffffff1f;color:#fff;cursor:pointer;
+  font:600 .76rem var(--font-body),sans-serif;backdrop-filter:blur(4px);transition:background .15s}
+.cel-seguir:hover{background:#fff;color:#000}
+.cel-info p{font-size:.84rem;line-height:1.35;opacity:1;max-width:none;text-shadow:0 1px 2px #0008}
+.cel-musica{display:flex;align-items:center;gap:6px;font-size:.76rem;overflow:hidden;white-space:nowrap}
+.cel-musica svg{flex:none}
+.cel-musica span{overflow:hidden;mask-image:linear-gradient(90deg,#000 80%,transparent)}
+.cel-musica i{display:inline-block;font-style:normal;animation:musica 9s linear infinite}
+@keyframes musica{to{transform:translateX(-50%)}}
+.cel-prog{left:0;right:0;bottom:0;height:3px;background:#ffffff40}
+.cel-prog i{display:block;height:100%;background:#fff;transform-origin:left;transition:transform .25s linear}
+.cel-aviso{top:50%;left:50%;width:74px;height:74px;margin:-37px 0 0 -37px;display:grid;place-items:center;border-radius:50%;background:#0000008c;pointer-events:none}
+.cel-coracao{top:50%;left:50%;width:110px;height:110px;margin:-55px 0 0 -55px;display:grid;place-items:center;pointer-events:none;filter:drop-shadow(0 4px 14px #0007)}
+.cel-coracao svg{width:110px;height:110px}
+@media(min-width:900px){.celular{width:300px}}
+@media (prefers-reduced-motion:reduce){.cel-musica i{animation:none}}

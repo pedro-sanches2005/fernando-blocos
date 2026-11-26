@@ -56,6 +56,8 @@ export const blocos: Bloco[] = [
      uso: "Vergas, contravergas e cintas em paredes de 11,5 cm" },
   { slug: "canaleta-19x19x39", categoria: "canaleta", largura: "19", altura: "19", comprimento: "39", furos: 0,
      uso: "Vergas, contravergas e cintas em paredes de 19 cm" },
+  { slug: "canaleta-11-5x14x24", categoria: "canaleta", largura: "11,5", altura: "14", comprimento: "24", furos: 0,
+     uso: "Vergas, contravergas e cintas em paredes de 11,5 cm" },
 ];
 
 export const num = (s: string) => parseFloat(s.replace(",", "."));

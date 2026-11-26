@@ -12,6 +12,7 @@ import WhatsIcon from "@/components/WhatsIcon";
 import { CONTATOS, waLink } from "@/lib/config";
 import Rodape from "@/components/Rodape";
 import Xicara from "@/components/Xicara";
+import VideoPlaca from "@/components/VideoPlaca";
 
 const marquee = [
   "Tecnologia • Qualidade • Resistência",
@@ -60,6 +61,9 @@ export default function Home() {
 
       <section id="contato" className="contato-sec">
         <Xicara />
+        <div className="contato-grid">
+          <VideoPlaca />
+          <div className="contato-txt">
         <h2>Vai construir ou reformar?</h2>
         <p>Conte com a qualidade e a confiança da Fernando Blocos! Entre em contato e faça seu pedido.</p>
         <div className="contatos">
@@ -70,6 +74,8 @@ export default function Home() {
               <span><small>Falar com</small><b>{c.nome}</b><em>{c.fone}</em></span>
             </a>
           ))}
+        </div>
+          </div>
         </div>
       </section>
 
