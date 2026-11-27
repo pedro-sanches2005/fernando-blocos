@@ -22,7 +22,7 @@ export const EMPRESA = {
   nome: "Fernando Blocos",
   razaoSocial: "", // ex.: "Fernando Blocos Comércio de Materiais Ltda."
   cnpj: "",        // ex.: "00.000.000/0001-00"
-  email: "",       // email para pedidos e para pedidos de dados pessoais (LGPD)
+  email: "contato@fernandoblocos.com.br", // email para pedidos e para pedidos de dados pessoais (LGPD)
   cidade: "Itu/SP",
 };
 export const ATUALIZADO = "25 de novembro de 2026"; // data da última revisão das páginas legais
