@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 // Frota: cada caminhão entra no card "dirigindo" no sentido para onde a cabine aponta.
 // frente: 1 = cabine à direita (entra pela esquerda), -1 = cabine à esquerda (entra pela direita).
 const frota = [
-  { src: "p360", w: 1510, h: 1024, marca: "Scania", modelo: "P360 XT", frente: 1, destaque: true },
+  { src: "p280xt", w: 1510, h: 1024, marca: "Scania", modelo: "P280 XT", frente: 1, destaque: true },
   { src: "p280", w: 1493, h: 1022, marca: "Scania", modelo: "P280", frente: 1, destaque: true },
   { src: "atego-direita", w: 1530, h: 785, marca: "Mercedes-Benz", modelo: "Atego 2426", frente: 1 },
   { src: "l1620", w: 1593, h: 753, marca: "Mercedes-Benz", modelo: "L 1620", frente: 1 },
